@@ -1,6 +1,6 @@
 (ns carture.db.cart)
 
-(def cart-db (atom {}))
+(def cart-db (atom nil))
 
 (defn upsert! [cart]
   (reset! cart-db cart))
