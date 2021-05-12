@@ -7,5 +7,3 @@
 
 (defn get-cart []
   @cart-db)
-
-

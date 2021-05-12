@@ -1,15 +1,13 @@
-(ns carture.controller.cart 
+(ns carture.controller.cart
   (:require [carture.logic.cart :as l.cart]
             [carture.db.cart :as db.cart]))
 
-
-(defn already-created [cart]
- (l.cart/already-created? cart))
+(defn- assert-not-exists! [cart]  
+  (if (nil? (db.cart/get-cart))
+    cart
+    (throw (ex-info "Already Initialized" {:violations :cart-already-initialized}))))
 
 (defn create! [cart]
   (->> cart
-       (already-created)
-       (l.cart/create)
-       db.cart/upsert!))
-
-
+       (assert-not-exists!)
+       (db.cart/upsert!)))
