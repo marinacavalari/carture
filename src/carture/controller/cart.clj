@@ -7,3 +7,8 @@
   (->> cart
        (l.cart/create)
        db.cart/upsert!))
+
+(defn already-created [cart]
+  (let [cart cart
+        previous-cart (db.cart/get-cart)]
+    (l.cart/already-created? cart previous-cart)))
