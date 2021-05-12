@@ -1,4 +1,6 @@
 (ns carture.logic.cart)
 
-(defn create [input]
-  input)
+(defn create [{{:keys [available-limit]} :cart}]
+  {:cart {:available-limit available-limit} :violations []})
+
+
