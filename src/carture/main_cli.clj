@@ -25,15 +25,13 @@
       (c.cart/add-product!)))
 
 (defn handle-checkout [input]
-  (-> input
-      (c.cart/add-product!)))
+  (-> input))
 
 (defn -main [& _args]
   (loop []
-    (let [{:keys [cart product checkout] :as input} (json/read-str (read-line) :key-fn keyword)]
+    (let [{:keys [cart product] :as input} (json/read-str (read-line) :key-fn keyword)]
       (cond
         cart (handle-cart-create input)
         product (handle-add-product input)
-        checkout (handle-checkout input)
         :else (println "invalid command"))
       (recur))))

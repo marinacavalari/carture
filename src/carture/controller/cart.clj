@@ -24,4 +24,5 @@
       (assert-cart-initialized!)
       (l.cart/new-cart-balance product)
       (assert-availabe-limit!)
-      (db.cart/upsert!)))
+      (db.cart/upsert! "cart-db")
+      (db.cart/insert-product! product)))
