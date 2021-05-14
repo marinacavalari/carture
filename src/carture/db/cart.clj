@@ -5,7 +5,7 @@
 (def product-db (atom nil))
 
 (defn upsert! [cart]
-  (reset! cart))
+  (reset! cart-db cart))
 
 (defn get-cart []
   @cart-db)
@@ -14,4 +14,16 @@
   (swap! product-db conj product))
 
 (defn get-products []
-  @product-db)
+   @product-db)
+
+(insert-product! {:product {:name :danete :price 40}})
+
+(defn price [lista]
+  (->> lista
+       (map (comp :price :product))
+       (reduce +)))
+
+(price [{:product {:name :danete, :price 40}}
+        {:product {:name :danete, :price 50}}])
+
+(get-products)

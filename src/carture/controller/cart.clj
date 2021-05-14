@@ -6,13 +6,13 @@
   (when cart
     (throw (ex-info "Already Initialized" {:violation :cart-already-initialized
                                            :cart cart}))))
-
 (defn- assert-cart-initialized! [cart]
   (when-not cart
     (throw (ex-info "Cart not initialized" {:violation :cart-not-initialized}))))
 
-(defn- assert-availabe-limit! [product]
-  (when-not (> product 0)
+(defn- assert-availabe-limit! [{{:keys [available-limit]} :cart :as cart}]
+  (if (> available-limit 0)
+    cart
     (throw (ex-info "Unsuficient limit available" {:violation :insufficient-balance}))))
 
 (defn create! [cart]
@@ -21,8 +21,19 @@
 
 (defn add-product! [product]
   (-> (db.cart/get-cart)
-      (assert-cart-initialized!)
-      (l.cart/new-cart-balance product)
+      assert-cart-initialized!
+      (l.cart/update-cart-balance product)
       (assert-availabe-limit!)
-      (db.cart/upsert! "cart-db")
-      (db.cart/insert-product! product)))
+      (db.cart/upsert!))
+  (db.cart/insert-product! product))
+
+(defn checkout []
+  (-> (db.cart/get-cart)
+      (assert-cart-initialized!)))
+
+{:cart {:available-limit 100}}
+{:product {:name :danete :price 20}}
+
+{"checkout": {"total": 20, "products" [{"name": "Danete" "price": 20}]}, "violations": []}
+
+{:checkout ""}
