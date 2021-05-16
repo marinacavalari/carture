@@ -15,15 +15,3 @@
 
 (defn get-products []
    @product-db)
-
-(insert-product! {:product {:name :danete :price 40}})
-
-(defn price [lista]
-  (->> lista
-       (map (comp :price :product))
-       (reduce +)))
-
-(price [{:product {:name :danete, :price 40}}
-        {:product {:name :danete, :price 50}}])
-
-(get-products)

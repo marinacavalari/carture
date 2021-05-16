@@ -17,7 +17,7 @@
 
 (defn create! [cart]
   (assert-cart-not-initializied! (db.cart/get-cart))
-  (db.cart/upsert! cart))
+  (db.cart/upsert! cart)) 
 
 (defn add-product! [product]
   (-> (db.cart/get-cart)
@@ -28,12 +28,9 @@
   (db.cart/insert-product! product))
 
 (defn checkout []
-  (-> (db.cart/get-cart)
-      (assert-cart-initialized!)))
-
-{:cart {:available-limit 100}}
-{:product {:name :danete :price 20}}
-
-{"checkout": {"total": 20, "products" [{"name": "Danete" "price": 20}]}, "violations": []}
-
-{:checkout ""}
+  (let [products (db.cart/get-products)
+        balance (l.cart/final-balance products)]
+    (-> (db.cart/get-cart)
+        (assert-cart-initialized!))
+    (l.cart/checkout balance products))
+  (db.cart/upsert! ()))

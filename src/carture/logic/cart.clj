@@ -9,3 +9,7 @@
   (->> products
        (map (comp :price :product))
        (reduce +)))
+
+(defn checkout [balance products]
+  {:checkout {:total balance
+              :products products}})
