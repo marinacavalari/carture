@@ -7,6 +7,9 @@
 (defn upsert! [cart]
   (reset! cart-db cart))
 
+(defn clean-db! []
+  (reset! cart-db nil))
+
 (defn get-cart []
   @cart-db)
 

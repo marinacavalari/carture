@@ -33,4 +33,4 @@
     (-> (db.cart/get-cart)
         (assert-cart-initialized!))
     (l.cart/checkout balance products))
-  (db.cart/upsert! ()))
+  (db.cart/clean-db!))
