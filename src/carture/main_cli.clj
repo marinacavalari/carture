@@ -21,11 +21,10 @@
   (safe-handle! input c.cart/create!))
 
 (defn handle-add-product [input]
-  (-> input
-      (c.cart/add-product!)))
+  (c.cart/add-product! input))
 
-(defn handle-checkout []
-  (c.cart/checkout))
+  (defn handle-checkout []
+    (c.cart/checkout))
 
 (defn -main [& _args]
   (loop []

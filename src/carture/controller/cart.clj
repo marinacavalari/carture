@@ -30,7 +30,6 @@
 (defn checkout []
   (let [products (db.cart/get-products)
         balance (l.cart/final-balance products)]
-    (-> (db.cart/get-cart)
-        (assert-cart-initialized!))
+    (assert-cart-initialized! (db.cart/get-cart))
     (l.cart/checkout balance products))
   (db.cart/clean-db!))
