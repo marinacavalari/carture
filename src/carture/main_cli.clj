@@ -20,10 +20,10 @@
   (safe-handle! input c.cart/create!))
 
 (defn handle-add-product [input]
-  (c.cart/add-product! input))
+  (safe-handle! input c.cart/add-product!))
 
 (defn handle-checkout []
-  (c.cart/checkout))
+  (safe-handle! nil c.cart/checkout))
 
 (defn handle-command []
   (let [{:keys [cart product checkout] :as input} (json/read-str (read-line) :key-fn keyword)]

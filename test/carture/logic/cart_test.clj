@@ -10,7 +10,9 @@
   :each
   (fn [f]
     (reset! db.cart/cart-db nil)
+    (reset! db.cart/product-db nil)
     (f)))
+
 
 (deftest update-cart-balance-test
   (testing "Update cart balance"
@@ -51,14 +53,22 @@
              (cli.cart/handle-command))))))
 
 (deftest handle-product-violations-test
-  (testing "test add with violations product"
-    (is (= "{\"cart\":{\"available-limit\":100},\"violations\":[\"cart-not-initialized\"]}"
+  (c.cart/create! {:cart {:available-limit 10}})
+  (testing "test add products with violations"
+    (is (= "{\"cart\":{\"available-limit\":-10},\"violations\":[\"insufficient-balance\"]}"
            (with-in-str "{\"product\": {\"name\": \"Danete\" \"price\": 20}}"
              (cli.cart/handle-command))))))
 
 (deftest handle-product-test
   (c.cart/create! {:cart {:available-limit 100}})
-  (testing "test add without violations product"
-    (is (= "{\"cart\":{\"available-limit\":100},\"violations\":[]}"
+  (testing "test add products without violations"
+    (is (= "{\"cart\":{\"available-limit\":80},\"violations\":[]}"
            (with-in-str "{\"product\": {\"name\": \"Danete\" \"price\": 20}}"
+             (cli.cart/handle-command))))))
+
+(deftest handle-checkout-test
+  (c.cart/create! {:cart {:available-limit 100}})
+  (testing "test cart checkout"
+    (is (= nil
+           (with-in-str ""
              (cli.cart/handle-command))))))
