@@ -14,7 +14,7 @@ Possible violations: ["cart-already-initialized"]
 
 Input
 json
-{"product": {"name": "Danete" "price": 20}}
+{"product": {"name": "Danete", "price": 20}}
 Output
 json
 {"cart": {"available-limit": 80}, "violations": []}

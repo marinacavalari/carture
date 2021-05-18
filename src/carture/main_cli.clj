@@ -1,6 +1,7 @@
 (ns carture.main-cli
   (:require [clojure.data.json :as json]
-            [carture.controller.cart :as c.cart]))
+            [carture.controller.cart :as c.cart])
+  (:gen-class))
 
 (defn- json-with-violations! [data violations]
   (-> data
@@ -25,8 +26,8 @@
 (defn handle-checkout []
   (safe-handle! nil c.cart/checkout))
 
-(defn handle-command []
-  (let [{:keys [cart product checkout] :as input} (json/read-str (read-line) :key-fn keyword)]
+(defn handle-command [input]
+  (let [{:keys [cart product checkout] :as input} (json/read-str input :key-fn keyword)]
     (cond
       cart (handle-cart-create input)
       product (handle-add-product input)
@@ -35,5 +36,6 @@
 
 (defn -main [& _args]
   (loop []
-    (println (handle-command))
-    (recur)))
+    (when-let [input (read-line)]
+      (println (handle-command input))
+      (recur))))

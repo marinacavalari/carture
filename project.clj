@@ -6,9 +6,8 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [org.clojure/data.json "2.2.1"]]
   :resource-paths ["resources"]
-  :profiles {:cli {:main carture.main-cli}}
-  :aliases {:cli ["with-profile" "cli" "run"]}
   :test-paths ["test" "integration-test"]
+  :main carture.main-cli
   :repl-options {:init-ns carture.main-cli})
   
 

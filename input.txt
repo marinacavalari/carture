@@ -1,0 +1,9 @@
+{"cart": {"available-limit": 100}}
+{"product": {"name": "Danete 1", "price": 20}}
+{"product": {"name": "Danete 2", "price": 20}}
+{"product": {"name": "Danete 3", "price": 20}}
+{"product": {"name": "", "price": 20}}
+{"product": {"name": "5", "price": 20}}
+{"product": {"name": "6666666666666666666666", "price": 20}}
+{"checkout": true}
+{"checkout": true}
