@@ -10,8 +10,8 @@
 
 (deftest final-balance-test
   (testing "Update balance after adding a product in it"
-    (is (= 60 (l.cart/final-balance [{:product {:name :danete, :price 40}}
-                                     {:product {:name :danete, :price 20}}])))))
+    (is (= 60 (l.cart/final-balance [{:name "Danete", :price 20}
+                                     {:name "Danete", :price 40}])))))
 
 (deftest checkout-test
   (testing "test the last action of a cart"

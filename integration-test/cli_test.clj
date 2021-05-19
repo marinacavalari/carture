@@ -53,6 +53,6 @@
 (deftest handle-checkout-test
   (c.cart/create! {:cart {:available-limit 100}})
   (testing "test cart checkout without violations"
-    (is (= "{\"violations\":[]}"
+    (is (= "{\"checkout\":{\"total\":0,\"products\":[]},\"violations\":[]}"
            (with-in-str "{\"checkout\": true}"
              (cli.cart/handle-command))))))

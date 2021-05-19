@@ -1,5 +1,5 @@
 {"cart": {"available-limit": 100}}
-{"product": {"name": "Danete 1", "price": 20}}
+{"product": {"name": "Danete 1", "price": 20, "time": "2021-07-18T19:30:00.000Z"}}
 {"product": {"name": "Danete 2", "price": 20}}
 {"product": {"name": "Danete 3", "price": 20}}
 {"product": {"name": "", "price": 20}}

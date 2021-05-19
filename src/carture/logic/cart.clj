@@ -7,7 +7,7 @@
 
 (defn final-balance [products]
   (->> products
-       (map (comp :price :product))
+       (map (comp :price))
        (reduce +)))
 
 (defn checkout [balance products]

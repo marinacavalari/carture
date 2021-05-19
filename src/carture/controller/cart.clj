@@ -31,9 +31,13 @@
     (db.cart/insert-product! product)
     updated-cart))
 
+(defn get-products []
+  (->> (db.cart/get-products)
+       (map (comp :product))
+       (reduce conj [])))
+
 (defn checkout [_]
-  (let [products (db.cart/get-products)
+  (let [products (get-products)
         balance (l.cart/final-balance products)]
     (assert-cart-initialized! (db.cart/get-cart))
-    (l.cart/checkout balance products))
-  (db.cart/clean-db!))
+    (l.cart/checkout balance products)))
