@@ -37,7 +37,10 @@
   (c.cart/create! {:cart {:available-limit 100}})
   (testing "test add products without violations"
     (is (= "{\"cart\":{\"available-limit\":80},\"violations\":[]}"
-           (cli.cart/handle-command "{\"product\": {\"name\": \"Danete\" \"price\": 20}}")))))
+           (cli.cart/handle-command "{\"product\":
+                                     {\"name\": \"Danete\" 
+                                     \"price\": 20 
+                                     \"time\":\"2021-05-19T22:11:50.453279\"}}")))))
 
 (deftest handle-checkout-violation-test
   (testing "test cart checkout with violations"

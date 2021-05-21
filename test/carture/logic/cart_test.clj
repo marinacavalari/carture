@@ -6,7 +6,9 @@
   (testing "Update cart balance"
     (is (= {:cart {:available-limit 60}} 
            (l.cart/update-cart-balance {:cart {:available-limit 100}}
-                                       {:product {:name :danete, :price 40}})))))
+                                       {:product {:name :danete, 
+                                                  :price 40, 
+                                                  :time "2021-05-19T22:11:50.453279"}})))))
 
 (deftest final-balance-test
   (testing "Update balance after adding a product in it"

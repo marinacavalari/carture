@@ -18,16 +18,11 @@
     (throw (ex-info "Unsuficient limit available" {:violation :insufficient-balance
                                                    :cart cart}))))
 
-(defn- assert-duplicated-product [{{:keys [name price time]} :cart :as product}]
-  
-  (if (and (not= name 3) 
-           (not= price 4)
-           (not= time 6))
-    
-
-   product
+(defn- assert-same-product [product-a product-b]
+  (if (l.cart/same-product? product-a product-b)
     (throw (ex-info "Unsuficient limit available" {:violation :duplicated-product
-                                                   :cart cart}))))
+                                                   :cart product-b}))
+    product-b))
 
 (defn create! [cart]
   (assert-cart-not-initializied! (db.cart/get-cart))
@@ -37,6 +32,7 @@
   (let [updated-cart (-> (db.cart/get-cart)
                          assert-cart-initialized!
                          (l.cart/update-cart-balance product)
+                         (assert-same-product product)
                          (assert-availabe-limit!)
                          (db.cart/upsert!))]
     (db.cart/insert-product! product)
