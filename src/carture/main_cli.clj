@@ -41,3 +41,4 @@
     (when-let [input (read-line)]
       (println (handle-command input))
       (recur))))
+

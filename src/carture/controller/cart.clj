@@ -32,9 +32,9 @@
   (let [updated-cart (-> (db.cart/get-cart)
                          assert-cart-initialized!
                          (l.cart/update-cart-balance product)
-                         (assert-same-product product)
                          (assert-availabe-limit!)
                          (db.cart/upsert!))]
+    (assert-same-product (db.cart/get-products) product)
     (db.cart/insert-product! product)
     updated-cart))
 
