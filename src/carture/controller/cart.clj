@@ -1,6 +1,7 @@
 (ns carture.controller.cart
   (:require [carture.logic.cart :as l.cart]
-            [carture.db.cart :as db.cart]))
+            [carture.db.cart :as db.cart]
+            [clojure.data.json :as json]))
 
 (defn- assert-cart-not-initializied! [cart]
   (when cart
@@ -20,7 +21,7 @@
 
 (defn- assert-same-product [product-a product-b]
   (if (l.cart/same-product? product-a product-b)
-    (throw (ex-info "Unsuficient limit available" {:violation :duplicated-product
+    (throw (ex-info "Same product" {:violation :duplicated-product
                                                    :cart product-b}))
     product-b))
 
@@ -34,7 +35,7 @@
                          (l.cart/update-cart-balance product)
                          (assert-availabe-limit!)
                          (db.cart/upsert!))]
-    (assert-same-product (db.cart/get-products) product)
+    (assert-same-product (last (db.cart/get-products)) product)
     (db.cart/insert-product! product)
     updated-cart))
 
