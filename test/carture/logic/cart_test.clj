@@ -22,3 +22,15 @@
                                   {:product {:name :danete, :price 20}}]}} 
             (l.cart/checkout 60 [{:product {:name :danete, :price 40}}
                                  {:product {:name :danete, :price 20}}])))))
+
+(deftest same-product
+  (testing "if a product has been added twice"
+    (is (=  true
+            (l.cart/same-product? {:product {:name "Danete", :price 20, :time "2021-05-19T22:11:50.453279"}}
+                                  {:product {:name "Danete", :price 20, :time "2021-05-19T22:11:50.453279"}})))
+    (is (=  false
+            (l.cart/same-product? {:product {:name "Danete", :price 10, :time "2021-05-19T22:11:50.453279"}}
+                                  {:product {:name "Danete", :price 20, :time "2021-05-19T22:11:50.453279"}})))
+        (is (=  false
+                (l.cart/same-product? {:product {:name "Danete", :price 20, :time "2021-05-19T22:11:50.453279"}}
+                                      {:product {:name "Danete", :price 20, :time "2021-05-19T22:13:50.453279"}})))))
