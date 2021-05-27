@@ -58,12 +58,18 @@
   (c.cart/add-product! {:product {:name "Danete"
                                   :price 20
                                   :time "2021-05-19T22:11:50.453279"}})
-  (testing "test add same product"
+  (testing "test add same product with violations"
     (is (= "{\"product\":{\"name\":\"Danete\",\"price\":20,\"time\":\"2021-05-19T22:11:50.453279\"},\"violations\":[\"duplicated-product\"]}"
            (cli.cart/handle-command "{\"product\" :{\"name\" :\"Danete\"
                       \"price\" :20
-                      \"time\" :\"2021-05-19T22:11:50.453279\"}}")))
-        (is (= "{\"cart\":{\"available-limit\":40},\"violations\":[]}"
-               (cli.cart/handle-command "{\"product\" :{\"name\" :\"Danete\"
+                      \"time\" :\"2021-05-19T22:11:50.453279\"}}"))))
+  (testing "test add same product with no violations"
+           (is (= "{\"cart\":{\"available-limit\":40},\"violations\":[]}"
+                  (cli.cart/handle-command "{\"product\" :{\"name\" :\"Danete\"
                       \"price\" :20
-                      \"time\" :\"2021-05-19T22:14:50.453279\"}}")))))
+                      \"time\" :\"2021-05-19T22:14:54.453279\"}}"))))
+  (testing "test add same product with violations, 2 minutes exactly"
+    (is (= "{\"product\":{\"name\":\"Danete\",\"price\":20,\"time\":\"2021-05-19T22:13:50.453279\"},\"violations\":[\"duplicated-product\"]}"
+           (cli.cart/handle-command "{\"product\" :{\"name\" :\"Danete\"
+                      \"price\" :20
+                      \"time\" :\"2021-05-19T22:13:50.453279\"}}")))))

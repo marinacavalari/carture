@@ -15,10 +15,16 @@
   {:checkout {:total balance
               :products products}})
 
+
 (defn same-product? [product-a product-b]
   (and (= (-> product-a :product :name) (-> product-b :product :name))
        (= (-> product-a :product :price) (-> product-b :product :price))
-       (jt/after? (jt/plus
-                   (jt/local-date-time (-> product-a :product :time))
-                   (jt/minutes 2))
-                  (jt/local-date-time (-> product-b :product :time)))))
+       (or (jt/after? (jt/plus
+                       (jt/local-date-time (-> product-a :product :time))
+                       (jt/minutes 2))
+                      (jt/local-date-time (-> product-b :product :time)))
+           (= (jt/plus
+               (jt/local-date-time (-> product-a :product :time))
+               (jt/minutes 2))
+              (jt/local-date-time (-> product-b :product :time))))))
+
