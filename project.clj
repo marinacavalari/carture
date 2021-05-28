@@ -9,7 +9,10 @@
   :resource-paths ["resources"]
   :test-paths ["test" "integration-test"]
   :main carture.main-cli
-  :repl-options {:init-ns carture.main-cli})
+  :repl-options {:init-ns carture.main-cli}
+  :host "0.0.0.0")
+  
+
   
 
 
