@@ -6,10 +6,10 @@ RUN mkdir -p /carture
 WORKDIR /carture
 
 # Copy only the target jar over
-COPY carture-*-standalone.jar .    
+COPY target/carture-*-standalone.jar /carture 
 
 # Open the port
 EXPOSE 3000
 
 # Run the JAR
-CMD java -jar carture-standalone.jar
+CMD java -jar /carture/carture-*-standalone.jar  
