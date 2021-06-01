@@ -43,6 +43,6 @@ It should remove the cart after checkout.
 Creating cart `echo '{"cart": {"available-limit": 100}}' | docker run --name carture carture-app-container` 
 
 Multiples commands `echo '{"cart": {"available-limit": 100}                                                   
-{"product": {"name": "Danete 1", "price": 20, "time": "2021-07-18T19:30:00"}}                                                                                                                 {"product": {"name": "Danete 1", "price": 20, "time": "2021-07-18T19:32:00"}}' | lein run` 
+{"product": {"name": "Danete 1", "price": 20, "time": "2021-07-18T19:30:00"}}                                                                                                                 {"product": {"name": "Danete 1", "price": 20, "time": "2021-07-18T19:32:00"}}' | docker run --name carture carture-app-container` 
 
 Also, you can run this application using Docker or Lein, the image is available at DockerHub.
